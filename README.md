@@ -1,2 +1,2 @@
 # INE5409
-Numerical Analysis
+Numerical Analysis Federal University of Santa Catarina
