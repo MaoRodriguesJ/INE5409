@@ -46,7 +46,7 @@ disp('Grau')
 n_maclaurin = 107
 
 % calculo dos coeficientes da série (derivando ln(0.95t + 1.05))
-coef_maclaurin = f_maclaurin_ln(n_maclaurin);
+coef_maclaurin = f_maclaurin_ln(n_maclaurin, a, b);
 
 % ajustanto os pontos para o range [-1, 1]
 tp = (2 .* xp .- (b .+ a))/(b .- a);
@@ -98,7 +98,7 @@ disp('Grau Denominador')
 m_pade = 11
 
 % grau para serie de maclaurin = n+m
-coef_maclaurin_pade = f_maclaurin_ln(n_pade+m_pade);
+coef_maclaurin_pade = f_maclaurin_ln(n_pade+m_pade, a, b);
 
 % calcula coeficientes dos polinomios a/b da aproximacao de pade
 [a_pade b_pade] = f_pade(n_pade, m_pade, coef_maclaurin_pade);
