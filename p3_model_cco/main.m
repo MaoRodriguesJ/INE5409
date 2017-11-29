@@ -15,7 +15,7 @@ y_exato = f(xp);
 disp(' ---------------------------------------------------------- ')
 disp('Interpolador Polinimial')
 
-grau_n_interpolador = 11
+grau_n_interpolador = 15
 
 % pontos de amarracao do interpolador polinomial
 x_polinomio = a : (b-a) / grau_n_interpolador : b;
