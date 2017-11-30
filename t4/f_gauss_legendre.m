@@ -1,4 +1,4 @@
- function [gm, x] = f_gauss_legendre(a, b, m)
+ function [gm, x] = f_gauss_legendre(a, b, m, func)
     t= [
     [0 0 0 0 0 0 0 0 0 0];
     [-1/sqrt(3) 1/sqrt(3) 0 0 0 0 0 0 0 0];
@@ -25,7 +25,7 @@ C= [
     soma = 0;
     for i = 1 : m
         x(i) = (0.5 * (b - a) * t(m, i)) + (0.5 * (b + a));
-        y(i) = f_erf(x(i)); 
+        y(i) = feval(func, x(i)); 
         soma += C(m, i)*y(i);
     end
     gm = 0.5 * (b - a) * soma;

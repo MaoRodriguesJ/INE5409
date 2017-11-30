@@ -40,8 +40,8 @@ m = 1;
 erro_aprox_gauss = 1;
 while erro_aprox_gauss > erroAprox
   m++;
-  [gm, x_polinomio] = f_gauss_legendre(a, b, m);
-  erro_aprox_gauss = abs(gm - f_gauss_legendre(a, b, m+1));
+  [gm, x_polinomio] = f_gauss_legendre(a, b, m, "f_erf");
+  erro_aprox_gauss = abs(gm - f_gauss_legendre(a, b, m+1, "f_erf"));
 end
 m
 gm
@@ -51,7 +51,7 @@ erro_exato_gauss = abs(gm - tn_exato)
 disp(' ---------------------------------------------------------- ')
 disp('8.6 d - Interpolador pelos X(i) de Gauss-Legendre')
 y_polinomio = f_erf(x_polinomio);
-coef = f_interpolador_polinomial(m-1, x, y_polinomio)
+coef = f_interpolador_polinomial(m-1, x_polinomio, y_polinomio)
 
 disp(' ---------------------------------------------------------- ')
 disp('8.6 e - Integral do Polinômio Interpolador')
@@ -60,6 +60,7 @@ I = diff(polyval(q,[a b]))
 
 disp(' ---------------------------------------------------------- ')
 disp('8.6 f - Gráfico Exato e Aprox')
+disp('Retirar comentário do código')
 np = 100;
 xp = a : (b-a)/np : b;
 y_exato = f_erf(xp);
@@ -78,20 +79,24 @@ disp('8.7 - Gauss-Legendre e Tchebyschev')
 valor_exato = -pi * log(2)
 erro_max = 1e-7;
 
+disp('-- Gauss-Legendre Limitado a m = 10 --')
+% é possível continual usando composição de integrais mas gauss
+% legendre não é adequado
+a = -1
+b = 1
 m_ln = 1;
 erro_exato_gauss_ln = 1;
 while erro_exato_gauss_ln > erro_max && m_ln < 10
   m_ln++;
-  gm_ln = f_gauss_legendre_ln(a, b, m_ln);
+  [gm_ln, x] = f_gauss_legendre(a, b, m_ln, "f_ln");
   erro_exato_gauss_ln = abs(gm_ln - valor_exato);
 end
-disp('Limitado a m = 10')
-% é possível continual usando composição de integrais mas gauss
-% legendre não é adequado
+
 m_ln
 gm_ln
 erro_exato_gauss_ln
 
+disp('-- Tchebyschev Limitado a m = 100 --')
 m = 1;
 erro_exato_tchebyschev = 1;
 while erro_exato_tchebyschev > erro_max && m < 100
@@ -99,11 +104,9 @@ while erro_exato_tchebyschev > erro_max && m < 100
   gtm = f_gauss_tchebychev(m, "f_ln2");
   erro_exato_tchebyschev = abs(gtm - valor_exato);
 end
-disp('Limitado a m = 100')
 m
 gtm
 erro_exato_tchebyschev
-
-
-
+% tchebyschev também não é adequado e seria necessário um M muito grande
+% para obter erro 10^-7
 
